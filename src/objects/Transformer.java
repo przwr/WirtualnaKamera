@@ -1,66 +1,81 @@
 package objects;
 
-import javafx.geometry.Point3D;
-import main.Camera;
-import net.jodk.lang.FastMath;
+import org.lwjgl.util.vector.Matrix4f;
 
 /**
  * Created by Przemek Wróbel on 10.10.16.
  */
 public class Transformer {
 
-//    TODO Matrix4f lwjgl
 
-//    rzutowanie perspektywiczne
-//    x' = ((x * d) / (z + d)) * s
-//    y' = ((y * d) / (z + d)) * s
-//
-//    d - odległość od rzutni
-//    s - skalowanie (standardowo 1.0)
-//
-//    rotacja
-//    val newX = centerX + (point2x - centerX) * Math.cos(x) - (point2z - centerZ) * Math.sin(x)
-//
-//    val newZ = centerZ + (point2x - centerX) * Math.sin(x) + (point2z - centerZ) * Math.cos(x)
-//
-//    centerX i centerZ, to punkt wokół którego rotujemy
-//    point2x i point2z to punkt, który totujemy
-
-//    x - to kąt rotacji
+    public static Matrix4f transformationMatrix = new Matrix4f();
 
 
-    public static void updatePosition(Line3D line3d, Camera camera) {
-        Point3D first = line3d.getFirst();
-        Point3D second = line3d.getSecond();
+    public static void translatePosition(Line3D line3d) {
+        Point4D first = line3d.getFirst();
+        Point4D second = line3d.getSecond();
 
-        double x1 = first.getX();
-        double y1 = first.getY();
-        double z1 = first.getZ();
-        double x2 = second.getX();
-        double y2 = second.getY();
-        double z2 = second.getZ();
+        first.multiply(transformationMatrix);
+        second.multiply(transformationMatrix);
+    }
 
-        double distance = camera.getDistance();
-        double scale = 1.0;
 
-        double x1Screen = ((x1 * distance) / (z1 + distance)) * scale;
-        double y1Screen = ((y1 * distance) / (z1 + distance)) * scale;
-        double x2Screen = ((x2 * distance) / (z2 + distance)) * scale;
-        double y2Screen = ((y2 * distance) / (z2 + distance)) * scale;
+    public static void setTranslationMatrix(float dx, float dy, float dz) {
+        transformationMatrix.setZero();
+        transformationMatrix.m00 = transformationMatrix.m11 = transformationMatrix.m22 = 1;
+        transformationMatrix.m03 = dx;
+        transformationMatrix.m13 = dy;
+        transformationMatrix.m23 = dz;
+    }
+
+    public static void updatePosition(Line3D line3d) {
+        Point4D first = line3d.getFirst();
+        Point4D second = line3d.getSecond();
+
+        float x1 = first.getX();
+        float y1 = first.getY();
+        float z1 = first.getZ();
+        float x2 = second.getX();
+        float y2 = second.getY();
+        float z2 = second.getZ();
+
+        float distance = 200;
+        float scale = 1.0f;
+
+        float x1Screen = ((x1 * distance) / (z1 + distance)) * scale;
+        float y1Screen = ((y1 * distance) / (z1 + distance)) * scale;
+        float x2Screen = ((x2 * distance) / (z2 + distance)) * scale;
+        float y2Screen = ((y2 * distance) / (z2 + distance)) * scale;
 
         line3d.setOnScreen(x1Screen, y1Screen, x2Screen, y2Screen);
     }
 
-    public static void rotate(Camera camera, double angle) {
-//        double newX = centerX + (point2x - centerX) * FastMath.cos(angle) - (point2z - centerZ) * FastMath.sin(angle);
-//        double newZ = centerZ + (point2x - centerX) * FastMath.sin(angle) + (point2z - centerZ) * FastMath.cos(angle);
-    }
 
-    public static void move(Camera camera) {
+//    Kąt w radianach
+//    http://www.dimmension3.spine.pl/modules.php?name=Tutorials&wtd=show_tutorial&nr=19
 
-    }
 
-    public static void zoom(Camera camera) {
-
-    }
+//
+//
+//
+//    public static void rotateLine(Camera camera, double angle, Line3D line3d) {
+//        double point1x = line3d.getOnScreen().getStartX();
+//        double point1y = line3d.getOnScreen().getStartY();
+//        double point2x = line3d.getOnScreen().getEndX();
+//        double point2y = line3d.getOnScreen().getEndY();
+//        Point3D cameraPosition = camera.getPosition();
+//        double newX1 = cameraPosition.getX() + (point1x - cameraPosition.getX()) * FastMath.cos(angle) - (point1y - cameraPosition.getY()) * FastMath.sin(angle);
+//        double newY1 = cameraPosition.getY() + (point1x - cameraPosition.getX()) * FastMath.sin(angle) + (point1y - cameraPosition.getY()) * FastMath.cos(angle);
+//        double newX2 = cameraPosition.getX() + (point2x - cameraPosition.getX()) * FastMath.cos(angle) - (point2y - cameraPosition.getY()) * FastMath.sin(angle);
+//        double newY2 = cameraPosition.getY() + (point2x - cameraPosition.getX()) * FastMath.sin(angle) + (point2y - cameraPosition.getY()) * FastMath.cos(angle);
+//        line3d.setOnScreen(point1x, point1y, point2x, point2y);
+//    }
+//
+//    public static void move(Camera camera) {
+//
+//    }
+//
+//    public static void zoom(Camera camera) {
+//
+//    }
 }

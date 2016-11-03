@@ -1,6 +1,5 @@
 package objects;
 
-import javafx.geometry.Point3D;
 
 import java.util.ArrayList;
 
@@ -9,7 +8,7 @@ import java.util.ArrayList;
  */
 public class Street extends Object3D {
 
-    public Street(Point3D p1, Point3D p2, Point3D p3, Point3D p4) {
+    public Street(Point4D p1, Point4D p2, Point4D p3, Point4D p4) {
         this.faces = new ArrayList<>(1);
         ArrayList<Line3D> lines = new ArrayList<>(4);
 

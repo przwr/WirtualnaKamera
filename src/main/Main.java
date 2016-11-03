@@ -11,9 +11,11 @@ import java.util.ArrayList;
 public class Main extends Application {
 
     private Group group = new Group();
-    private Scene scene = new Scene(group, 500, 500);
+    public static int screenX = 500;
+    public static int screenY = 500;
+
+    private Scene scene = new Scene(group, screenX, screenY);
     private ArrayList<Object3D> objects = new ArrayList<>(4);
-    private Camera camera = new Camera();
 
 
     @Override
@@ -27,7 +29,10 @@ public class Main extends Application {
 
     private void initSomeLogic() {
         objects.add(ObjectCreator.createStreet());
-        updateTransformation(objects, camera);
+        objects.add(ObjectCreator.createBlockOne());
+        objects.add(ObjectCreator.createBlockTwo());
+
+        updateTransformation(objects);
         for (Object3D object : objects) {
             for (Face face : object.getFaces()) {
                 for (Line3D line3d : face.getLines()) {
@@ -39,11 +44,14 @@ public class Main extends Application {
     }
 
 
-    private static void updateTransformation(ArrayList<Object3D> objects, Camera camera) {
+    private static void updateTransformation(ArrayList<Object3D> objects) {
+        Transformer.setTranslationMatrix(500, 250, 0);
+
         for (Object3D object : objects) {
             for (Face face : object.getFaces()) {
                 for (Line3D line3d : face.getLines()) {
-                    Transformer.updatePosition(line3d, camera);
+                    Transformer.translatePosition(line3d);
+                    Transformer.updatePosition(line3d);
                 }
             }
         }
