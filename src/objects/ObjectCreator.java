@@ -8,42 +8,55 @@ import java.util.ArrayList;
  */
 public class ObjectCreator {
 
-    public static Street createStreet() {
-        Point4D p1 = new Point4D(600, 0, 0);
-        Point4D p2 = new Point4D(400, 0, 1000);
-        Point4D p3 = new Point4D(500, 0, 1000);
-        Point4D p4 = new Point4D(700, 0, 0);
-        return new Street(p1, p2, p3, p4);
+
+    public static Block createStreetBlock() {
+        float zStart = 150;
+        float zEnd = 1000;
+
+
+        Point4D p1 = new Point4D(-100, 0, zStart);
+        Point4D p2 = new Point4D(-100, 0, zEnd);
+        Point4D p3 = new Point4D(100, 0, zEnd);
+        Point4D p4 = new Point4D(100, 0, zStart);
+
+        float height = 1; //Współrzędna Y-kowa
+
+        Point4D p5= new Point4D(-100, height, zStart);
+        Point4D p6 = new Point4D(-100, height, zEnd);
+        Point4D p7 = new Point4D(100, height, zEnd);
+        Point4D p8 = new Point4D(100, height, zStart);
+
+        return new Block(p1, p2, p3, p4, p5, p6, p7, p8);
     }
 
     public static Block createBlockOne() {
-        Point4D p1 = new Point4D(200, 0, 400);
-        Point4D p2 = new Point4D(300, 0, 500);
-        Point4D p3 = new Point4D(400, 0, 400);
-        Point4D p4 = new Point4D(300, 0, 300);
+        Point4D p1 = new Point4D(-200, 0, 400);
+        Point4D p2 = new Point4D(-300, 0, 500);
+        Point4D p3 = new Point4D(-400, 0, 400);
+        Point4D p4 = new Point4D(-300, 0, 300);
 
         float height = 300; //Współrzędna Y-kowa
 
-        Point4D p5 = new Point4D(200, height, 400);
-        Point4D p6 = new Point4D(300, height, 500);
-        Point4D p7 = new Point4D(400, height, 400);
-        Point4D p8 = new Point4D(300, height, 300);
+        Point4D p5 = new Point4D(-200, height, 400);
+        Point4D p6 = new Point4D(-300, height, 500);
+        Point4D p7 = new Point4D(-400, height, 400);
+        Point4D p8 = new Point4D(-300, height, 300);
 
         return new Block(p1, p2, p3, p4, p5, p6, p7, p8);
     }
 
     public static Block createBlockTwo() {
-        Point4D p1 = new Point4D(700, 0, 600);
-        Point4D p2 = new Point4D(700, 0, 800);
-        Point4D p3 = new Point4D(900, 0, 800);
-        Point4D p4 = new Point4D(900, 0, 600);
+        Point4D p1 = new Point4D(500, 0, 600);
+        Point4D p2 = new Point4D(500, 0, 800);
+        Point4D p3 = new Point4D(700, 0, 800);
+        Point4D p4 = new Point4D(700, 0, 600);
 
         float height = 600; //Współrzędna Y-kowa
 
-        Point4D p5 = new Point4D(700, height, 600);
-        Point4D p6 = new Point4D(700, height, 800);
-        Point4D p7 = new Point4D(900, height, 800);
-        Point4D p8 = new Point4D(900, height, 600);
+        Point4D p5 = new Point4D(500, height, 600);
+        Point4D p6 = new Point4D(500, height, 800);
+        Point4D p7 = new Point4D(700, height, 800);
+        Point4D p8 = new Point4D(700, height, 600);
 
         return new Block(p1, p2, p3, p4, p5, p6, p7, p8);
     }

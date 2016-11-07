@@ -1,43 +1,34 @@
 package objects;
 
-import javafx.geometry.Point3D;
-import org.lwjgl.util.vector.Matrix4f;
-import org.lwjgl.util.vector.Vector;
-import org.lwjgl.util.vector.Vector4f;
+import Jama.Matrix;
 
 /**
  * Created by przemek on 28.10.16.
  */
 public class Point4D {
-    Matrix4f vector = new Matrix4f();
-    {
-        vector.setZero();
+    Matrix vector;
+
+
+    public Point4D(double x, double y, double z) {
+        double[][] array = {{x, y, z, 1}};
+        vector = new Matrix(array);
+        vector = vector.transpose();
+    }
+
+    public void multiply(Matrix transformationMatrix) {
+        vector = transformationMatrix.times(vector);
     }
 
 
-    public Point4D(float x, float y, float z) {
-        vector.m00 = x;
-        vector.m10 = y;
-        vector.m20 = z;
-        vector.m30 = 1;
+    public double getX() {
+        return vector.get(0, 0);
     }
 
-    public void multiply(Matrix4f transformationMatrix) {
-        Matrix4f dest = new Matrix4f();
-        dest.setZero();
-        Matrix4f.mul(transformationMatrix, vector, dest);
-        vector = dest;
+    public double getY() {
+        return vector.get(1, 0);
     }
 
-    public float getX() {
-        return vector.m00;
-    }
-
-    public float getY() {
-        return vector.m10;
-    }
-
-    public float getZ() {
-        return vector.m20;
+    public double getZ() {
+        return vector.get(2, 0);
     }
 }
