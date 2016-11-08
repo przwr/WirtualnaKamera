@@ -14,21 +14,6 @@ public class Transformer {
     public static Matrix translationMatrix;
     public static Matrix rotationMatrix;
 
-    public static void translatePosition(Line3D line3d) {
-        Point4D first = line3d.getFirst();
-        Point4D second = line3d.getSecond();
-
-        first.multiply(translationMatrix);
-        second.multiply(translationMatrix);
-    }
-
-    public static void rotatePosition(Line3D line3d) {
-        Point4D first = line3d.getFirst();
-        Point4D second = line3d.getSecond();
-
-        first.multiply(rotationMatrix);
-        second.multiply(rotationMatrix);
-    }
 
     public static void setTranslationMatrix(double dx, double dy, double dz) {
         double[][] array = {
@@ -52,6 +37,23 @@ public class Transformer {
         };
         rotationMatrix = new Matrix(array);
     }
+
+    public static void translatePosition(Line3D line3d) {
+        Point4D first = line3d.getFirst();
+        Point4D second = line3d.getSecond();
+
+        first.multiply(translationMatrix);
+        second.multiply(translationMatrix);
+    }
+
+    public static void rotatePosition(Line3D line3d) {
+        Point4D first = line3d.getFirst();
+        Point4D second = line3d.getSecond();
+
+        first.multiply(rotationMatrix);
+        second.multiply(rotationMatrix);
+    }
+
 
     public static void zoomIn() {
         distance += distanceStep;
